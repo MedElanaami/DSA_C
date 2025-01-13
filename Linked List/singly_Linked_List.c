@@ -89,10 +89,42 @@ Node *insert_End(Node *head, int val)
   return (Node *)head;
 }
 
+/* Insert at position*/
+Node *insert_Pos(Node *head)
+{
+  int val, pos;
+  printf("Enter the value to be inserted\n");
+  scanf("%d", &val);
+  printf("Enter the position\n");
+  scanf("%d", &pos);
+
+  if (pos <= 0)
+    head = insert_Beg(head, val);
+
+  else if (pos >= length_List(head))
+    head = insert_End(head, val);
+
+  else
+  {
+    int count = 0;
+    Node *newNode = create_Node(val);
+    Node *tmp = head;
+
+    while (tmp->next && count < pos - 1)
+    {
+      count++;
+      tmp = tmp->next;
+    }
+    newNode->next = tmp->next;
+    tmp->next = newNode;
+    return (Node *)head;
+  }
+}
+
 Node *create_List()
 {
   int nbrElements;
-  printf("How many elements you want to insert? ");
+  printf("How many elements you want to insert?");
   scanf("%d", &nbrElements);
 
   if (nbrElements <= 0)
@@ -103,7 +135,7 @@ Node *create_List()
   for (int i = 0; i < nbrElements; i++)
   {
     int val;
-    printf("Enter data for node %d", i + 1);
+    printf("Enter data for node %d: ", i + 1);
     scanf("%d", &val);
     if (i == 0)
       head = create_Node(val);
@@ -114,33 +146,30 @@ Node *create_List()
   return (Node *)head;
 }
 
+void free_Node(Node *head)
+{
+  // Free memory
+  while (head)
+  {
+    Node *tmp = head;
+    head = head->next;
+    free(tmp);
+  }
+}
+
 int main()
 {
 
   // Test with a single node
-  Node *list = create_Node(5);
-  printf("Initial list: ");
+  Node *list = create_List();
+
   display(list);
 
-  // Insert at beginning
-  list = insert_Beg(list, 3);
-  printf("After inserting 3 at beginning: ");
+  int taille = length_List(list);
+  printf("%d", taille);
+  list = insert_Pos(list);
   display(list);
-
-  // Insert at end
-  list = insert_End(list, 7);
-  printf("After inserting 7 at end: ");
-  display(list);
-
-  printf("Length of list: %d\n", length_List(list));
-
-  // Free memory
-  while (list)
-  {
-    Node *tmp = list;
-    list = list->next;
-    free(tmp);
-  }
+  free_Node(list);
 
   return 0;
 }
