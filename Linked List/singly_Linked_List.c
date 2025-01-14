@@ -156,6 +156,7 @@ Node *delete_Beg(Node *head)
     printf("Linked list doesnt exist or empty");
     return NULL;
   }
+
   Node *newNode = head->next;
   free(head);
   return (Node *)newNode;
@@ -169,12 +170,12 @@ Node *delete_End(Node *head)
     printf("Linked list doesnt exist or empty");
     return NULL;
   }
+
   // If there is 1 elem in list
   if (head->next == NULL)
   {
     free(head);
-    head = NULL;
-    return (Node *)head;
+    return NULL;
   }
   // Else go for the last element
   Node *tmp = head;
@@ -182,8 +183,49 @@ Node *delete_End(Node *head)
   {
     tmp = tmp->next;
   }
+
   free(tmp->next);
   tmp->next = NULL;
+  return (Node *)head;
+}
+
+// Delete at position
+Node *delete_Pos(Node *head, int pos)
+{
+
+  if (!head)
+  {
+    printf("Linked list doesnt exist or empty\n");
+    return (Node *)head;
+  }
+
+  // check if position not in the lenght of linked list
+  if (pos < 1 || length_List(head) < pos)
+  {
+    printf("Position not valid\n");
+    return (Node *)head;
+  }
+
+  // if the position of first element
+  if (pos == 1)
+  {
+    head = delete_Beg(head);
+    return (Node *)head;
+  }
+
+  if (length_List(head) == pos)
+  {
+    head = delete_End(head);
+    return (Node *)head;
+  }
+
+  Node *tmp = head;
+  for (int i = 1; i < pos - 1; i++)
+    tmp = tmp->next;
+
+  Node *del = tmp->next;
+  tmp->next = tmp->next->next;
+  free(del);
   return (Node *)head;
 }
 void free_Node(Node *head)
@@ -203,11 +245,15 @@ int main()
   // Test with a single node
   Node *list = create_List();
   display(list);
-
+  printf("Delete at beg\n");
   list = delete_Beg(list);
   display(list);
 
+  printf("Delete at ent\n");
   list = delete_End(list);
+  display(list);
+  printf("Delete at pos\n");
+  list = delete_Pos(list, 2);
   display(list);
 
   free_Node(list);
