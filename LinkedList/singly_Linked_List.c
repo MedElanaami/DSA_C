@@ -54,7 +54,7 @@ void display(Node *head)
     return;
   }
 
-  printf("Display elements in Linked List\n");
+  printf("\nDisplay elements in Linked List\t");
   Node *tmp = head;
   while (tmp)
   {
@@ -156,6 +156,7 @@ Node *delete_Beg(Node *head)
     printf("Linked list doesnt exist or empty");
     return NULL;
   }
+
   Node *newNode = head->next;
   free(head);
   return (Node *)newNode;
@@ -169,12 +170,12 @@ Node *delete_End(Node *head)
     printf("Linked list doesnt exist or empty");
     return NULL;
   }
+
   // If there is 1 elem in list
   if (head->next == NULL)
   {
     free(head);
-    head = NULL;
-    return (Node *)head;
+    return NULL;
   }
   // Else go for the last element
   Node *tmp = head;
@@ -182,10 +183,98 @@ Node *delete_End(Node *head)
   {
     tmp = tmp->next;
   }
+
   free(tmp->next);
   tmp->next = NULL;
   return (Node *)head;
 }
+
+// Delete at position
+Node *delete_Pos(Node *head, int pos)
+{
+
+  if (!head)
+  {
+    printf("Linked list doesnt exist or empty\n");
+    return (Node *)head;
+  }
+
+  // check if position not in the lenght of linked list
+  if (pos < 1 || length_List(head) < pos)
+  {
+    printf("Position not valid\n");
+    return (Node *)head;
+  }
+
+  // if the position of first element
+  if (pos == 1)
+  {
+    head = delete_Beg(head);
+    return (Node *)head;
+  }
+
+  if (length_List(head) == pos)
+  {
+    head = delete_End(head);
+    return (Node *)head;
+  }
+
+  Node *tmp = head;
+  for (int i = 1; i < pos - 1; i++)
+    tmp = tmp->next;
+
+  Node *del = tmp->next;
+  tmp->next = tmp->next->next;
+  free(del);
+  return (Node *)head;
+}
+
+/* Update */
+void update_Pos(Node *head, int pos, int val)
+{
+  if (!head)
+  {
+    printf("Doesn't exist ");
+    return;
+  }
+
+  if (pos < 1 || length_List(head) < pos)
+  {
+    printf("Position not valid");
+    return;
+  }
+
+  Node *tmp = head;
+  int i;
+  for (i = 1; i < pos; i++)
+    tmp = tmp->next;
+  int oldVal = tmp->data;
+  tmp->data = val;
+  printf("\nNode num %d with old data %d is updated to %d", i, oldVal, tmp->data);
+  return;
+}
+/* Search*/
+// Search by value and return pos
+int search(Node *head, int val)
+{
+  if (!head)
+  {
+    return -1;
+  }
+
+  int pos = 1;
+  Node *tmp = head;
+  while (tmp != NULL)
+  {
+    if (tmp->data == val)
+      return (int)pos;
+    tmp = tmp->next;
+    pos++;
+  }
+
+  return 0;
+}
+
 void free_Node(Node *head)
 {
   // Free memory
@@ -203,12 +292,9 @@ int main()
   // Test with a single node
   Node *list = create_List();
   display(list);
+  int pos = search(list, 99);
 
-  list = delete_Beg(list);
-  display(list);
-
-  list = delete_End(list);
-  display(list);
+  printf("\npos is %d\n", pos);
 
   free_Node(list);
 
