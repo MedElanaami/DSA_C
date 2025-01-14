@@ -275,6 +275,23 @@ int search(Node *head, int val)
   return 0;
 }
 
+/* Merge Two Lists */
+Node *merge_List(Node *node1, Node *node2)
+{
+  if (!node1)
+    return node2;
+  if (!node2)
+    return node1;
+
+  Node *tail = node1;
+  while (tail->next)
+  {
+    tail = tail->next;
+  }
+  tail->next = node2;
+  return (Node *)node1;
+}
+
 void free_Node(Node *head)
 {
   // Free memory
@@ -292,9 +309,11 @@ int main()
   // Test with a single node
   Node *list = create_List();
   display(list);
-  int pos = search(list, 99);
+  Node *list2 = create_List();
+  display(list2);
 
-  printf("\npos is %d\n", pos);
+  Node *mer = merge_List(list, list2);
+  display(mer);
 
   free_Node(list);
 
