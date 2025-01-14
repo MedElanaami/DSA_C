@@ -176,7 +176,7 @@ Node *delete_End(Node *head)
     head = NULL;
     return (Node *)head;
   }
-
+  // Else go for the last element
   Node *tmp = head;
   while (tmp->next->next)
   {
