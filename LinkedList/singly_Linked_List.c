@@ -306,14 +306,8 @@ void free_Node(Node *head)
 int main()
 {
 
-  // Test with a single node
   Node *list = create_List();
   display(list);
-  Node *list2 = create_List();
-  display(list2);
-
-  Node *mer = merge_List(list, list2);
-  display(mer);
 
   free_Node(list);
 
