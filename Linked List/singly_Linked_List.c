@@ -146,6 +146,46 @@ Node *create_List()
   return (Node *)head;
 }
 
+/*Delete node*/
+
+// Delete the first node
+Node *delete_Beg(Node *head)
+{
+  if (!head)
+  {
+    printf("Linked list doesnt exist or empty");
+    return NULL;
+  }
+  Node *newNode = head->next;
+  free(head);
+  return (Node *)newNode;
+}
+
+// Delete the last node
+Node *delete_End(Node *head)
+{
+  if (!head)
+  {
+    printf("Linked list doesnt exist or empty");
+    return NULL;
+  }
+  // If there is 1 elem in list
+  if (head->next == NULL)
+  {
+    free(head);
+    head = NULL;
+    return (Node *)head;
+  }
+  // Else go for the last element
+  Node *tmp = head;
+  while (tmp->next->next)
+  {
+    tmp = tmp->next;
+  }
+  free(tmp->next);
+  tmp->next = NULL;
+  return (Node *)head;
+}
 void free_Node(Node *head)
 {
   // Free memory
@@ -162,13 +202,14 @@ int main()
 
   // Test with a single node
   Node *list = create_List();
-
   display(list);
 
-  int taille = length_List(list);
-  printf("%d", taille);
-  list = insert_Pos(list);
+  list = delete_Beg(list);
   display(list);
+
+  list = delete_End(list);
+  display(list);
+
   free_Node(list);
 
   return 0;
