@@ -22,7 +22,7 @@ Node *newNode = (Node *)malloc(sizeof(Node));  // For new nodes ✓
 - Update
 - Search
 
-## Stacks
+## [Stacks](./stack/)
 
 ## Queues
 
