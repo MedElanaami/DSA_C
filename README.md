@@ -16,15 +16,9 @@ Node *newNode = (Node *)malloc(sizeof(Node));  // For new nodes ✓
 
 ## [Linked List](./LinkedList)
 
-- Struct Node
-- Insert
-- Delete
-- Update
-- Search
-
 ## [Stacks](./stack/)
 
-## Queues
+## [Queues](./queues/)
 
 ## Trees
 
