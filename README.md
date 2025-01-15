@@ -20,7 +20,7 @@ Node *newNode = (Node *)malloc(sizeof(Node));  // For new nodes ✓
 
 ## [Queues](./queues/)
 
-## Trees
+## [Trees](./binaryTree/)
 
 ## Graphs
 
