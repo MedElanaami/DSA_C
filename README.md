@@ -12,7 +12,7 @@ Node *tmp = head;  // Correct ✓
 Node *newNode = (Node *)malloc(sizeof(Node));  // For new nodes ✓
 ```
 
-## Arrays
+## [Arrays](./arrays/)
 
 ## [Linked List](./LinkedList)
 
